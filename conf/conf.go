@@ -10,11 +10,12 @@ type Config struct {
 	ListenPort string `json:"listen_port"`
 	ServerHost string `json:"server_host"`
 	MethodKey  string `json:"method_key"`
+	Scheme     string `json:"scheme"`
 	fileName   string
 }
 func NewConfig() *Config{
 	// 默认配置
-	return &Config{"9090", "127.0.0.1:8080", "_method", "./onlyGetPostProxyConf.json"}
+	return &Config{"9090", "127.0.0.1:8080", "_method", "http", "./onlyGetPostProxyConf.json"}
 }
 func (c *Config) SetFileName(fileName string){
 	c.fileName = fileName

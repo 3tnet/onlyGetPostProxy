@@ -1,12 +1,13 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"strings"
 	"onlyGetPostProxy/conf"
+	"fmt"
+	"log"
 )
 var config = conf.NewConfig()
 
@@ -24,11 +25,11 @@ func NewHostsReverseProxy(target url.URL) *httputil.ReverseProxy {
 }
 func main() {
 	config.ReadConfig()
-
-
 	proxy := NewHostsReverseProxy(url.URL{
-		Scheme: "http",
+		Scheme: config.Scheme,
 		Host:   config.ServerHost,
 	})
+	fmt.Println("runing at " + config.ListenPort)
+	fmt.Println("proxy to " + config.Scheme + "://" + config.ServerHost)
 	log.Fatal(http.ListenAndServe(":" + config.ListenPort, proxy))
 }
